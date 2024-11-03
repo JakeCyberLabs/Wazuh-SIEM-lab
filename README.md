@@ -275,17 +275,63 @@
 
    ![image](https://github.com/user-attachments/assets/0de09912-c93b-4508-8a03-474d27773362)
 
-- Something else cool in Wazuh is Actions. This is also super powerful. The "Actions" feature can setup automated responses that trigger when certain alerts are generated. This helps in quickly mitigating threats without manual intervention. Here is how i will do that.
+- Something else cool in Wazuh are Active responses. This is also super powerful. The "Acctive response" feature can setup automated responses that trigger when certain alerts are generated. This helps in quickly mitigating threats without manual intervention. Here is how i will do that.
 
-- I'll jump in to my Linux machine in the Wazuh dashboard and head to security events.
+- I will demonstate this by creating a response that will trigger when failed authentication attempts happen. In my Kali VM, i will start generating a failed login attempt via SSH. Here we can see that i am getting a password prompt. I am not blocked from logging in via SSH.
 
-   ![image](https://github.com/user-attachments/assets/569aea7a-aa51-40c9-9c40-852709bc14f6)
-   ![image](https://github.com/user-attachments/assets/df521b7c-0fc7-4534-ab0e-a5dfe333844a)
+   ![image](https://github.com/user-attachments/assets/73e88ec5-bf5f-4572-9631-c99561ef4e16)
 
-- I will Brute force this machine 
+- I will go back to my Wazuh dashboard to see this in *Security events* and here it will show the agent name(kali VM) and the username(hacker) that i tried to login with.
+
+   ![image](https://github.com/user-attachments/assets/4a266b28-47cd-4fc8-8f55-6e8ba59a9fae)
 
 
-  ![image](https://github.com/user-attachments/assets/a94d46e4-0df1-43d5-8d61-88d3cdf8d9b1)
+- It also shows the MITRE tactic and technique used along with associated timestamps. 
+  
+   ![image](https://github.com/user-attachments/assets/87c2d7d7-1a3b-402d-b523-7ef540691d4d)
+
+- Now, i will configure Wazuh actively respond to failed SSH login attempts and add it to the block list. I will do so by heading back to the dashboard in Wazuh server and head to the configuration settings and click on *Edit configuration*
+
+   ![image](https://github.com/user-attachments/assets/fde96638-5b10-49d1-bf10-f7fa395efad8)
+   ![image](https://github.com/user-attachments/assets/b6e222ec-3fe3-4032-95ef-a1e1b11c00d2)
+
+- I will scroll down to where it says *active response* It will show you the format for the active response so you would essentially just match that with your configuration. I will do that and add the rule "5710" since that was the *rule ID* number that showed when we failed to authenticate via SSH. You can also set the duration for the response. I will set this to 180 seconds.
+
+   ![image](https://github.com/user-attachments/assets/02795aed-f2d7-4b4a-bf2f-d7e95769b994)
+
+- Click on *Save* and *Restart Manager*
+
+   ![image](https://github.com/user-attachments/assets/41e97815-4f31-4b47-9b36-2cbf9114b095)
+
+- Now i will head back over to the Kali machine and try to login via SSH again.
+
+   ![image](https://github.com/user-attachments/assets/22caf5e1-7392-4844-a2a5-a410bc88ed70)
+
+- I will head back over to the security events page for the Kali VM in my Wazuh dashboard and notice how the firewall has blocked it with the active-response feature.
+
+   ![image](https://github.com/user-attachments/assets/e3fe2aea-02fe-40b3-aba4-83653661bc5e)
+
+- I am BLOCKED. I cannot even ping this machine for 180s. How cool is that! These active responses are so powerful. You can configure these responses based on a variety of rules. It is so custom. You could even do it based on a certain command that was ran or a certain log came about in the system. 
+
+  
+
+
+   
+
+
+  
+
+
+  
+
+  
+  
+
+
+   
+
+
+
 
 
    
