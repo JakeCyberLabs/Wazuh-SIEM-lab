@@ -4,7 +4,7 @@
 
 - The objective of this lab is to deploy and configure Wazuh, an open-source security monitoring platform, to enhance system security by 
   detecting vulnerabilities, identifying unauthorized processes, and monitoring changes to files and the Windows Registry. I will also 
-  configure alearts and active responses for countermeasures to security-related attacks. This setup aims to provide real-time threat      detection and incident response capabilities, ensuring a robust security posture for systems under observation.
+  configure alearts and active responses for countermeasures to security-related attacks. This setup aims to provide real-time threat detection and incident response capabilities, ensuring a robust security posture for systems under observation.
 
 ### Skills Learned
 
@@ -18,26 +18,27 @@
 
 - Linode cloud computing provider
 - Wazuh (Endpoint detection & response tool/SIEM)
-- Ubuntu Linux VM -*Wazuh host*
-- Windows 10 VM (VirtualBox) -*Wazuh agent*  
+- Ubuntu Linux VM -*Wazuh server*
+- Windows 10 Pro VM (VirtualBox) -*Wazuh agent*  
 - Kali Linux VM (VirtualBox) -*Wazuh agent*
+- My windows 11 home machine (to interact with everything)
 
 
 ## Steps
 
-- I will start this lab by heading over to Linode and creating the virtual machine that i will be hosting Wazuh on. I will select *Create* > * *Linode High performance SSD Linux servers*
+- I will start this lab by heading over to Linode and creating the virtual machine that i will be hosting Wazuh on. I will select *Create* > *Linode High performance SSD Linux servers*
 
    ![image](https://github.com/user-attachments/assets/b39e331a-30c2-4c7a-ad5c-bbf3c93e80a8)
 
-- Linode makes it super simple to deploy VM's and also has a feature that lets you pre-install services inside of your VM in the creation process. To setup Wazuh in my VM, i will select *Market place* and search for Wazuh. I will select Wazuh and then scroll down for the configuration.
+- Linode makes it super simple to deploy VM's. They also have a feature that lets you pre-install services inside of your VM in the creation process. To setup Wazuh in my VM, i will select *Market place* and search for Wazuh. I will select Wazuh and then scroll down for the configuration of the whole instance.
 
    ![image](https://github.com/user-attachments/assets/6ff980cf-d930-4427-9d7d-c149506f69fc)
 
-- I will type in my email for the SSL certificate, a username for a limited sudo user account, a password, image(Ubuntu), the region i want to store this in, and finally, the Linode plan(CPU/memory). I am going to go with the 4GB to make things work smoothly.
+- I will type in my email for the SSL certificate, a username for the limited sudo user account, a password, image(Ubuntu), the region i want to store this in, and finally, the Linode plan(CPU/memory). I am going to go with the 4GB to make things work smoothly.
 
    ![image](https://github.com/user-attachments/assets/c0530cf0-6c3b-4901-915b-fedce1a45f60)
 
-- I will select create, and now its going to bake me a VM inside of the cloud.
+- I will select *create* and now it's going to bake me a VM inside of the cloud.
 
    ![image](https://github.com/user-attachments/assets/d20f156f-3f03-4271-8622-868ca9d060b7)
 
@@ -59,7 +60,7 @@
 
    ![image](https://github.com/user-attachments/assets/f695a7e3-37c6-405b-a6ae-97b43727a5b6)
 
-- Okay, now that i have the admin password, i will log in to Wazuh by heading back over to my Linode dashboard and scrolling down to the network config page and grabbing the reverse DNS and pasting it inside of my browser.
+- Okay, now that i have the admin password for the Wazuh dashboard, i can log into Wazuh through a separate browser tab on my local machine. I need the ip address for the Wazuh dashboard, so i will head back over to my Linode dashboard and scrolling down to the network config page and grabbing the reverse DNS and pasting it inside of my browser.
 
    ![image](https://github.com/user-attachments/assets/93f1c09a-c797-414c-9dd2-067d22b1db86)
    ![image](https://github.com/user-attachments/assets/6975cdd6-a82d-4e17-abf2-6eea4d91a6e9)
@@ -68,27 +69,28 @@
 
    ![image](https://github.com/user-attachments/assets/e6e292d1-5271-4b1d-b49c-ec574bd2053f)
 
-- Here we go! successfull deployment of Wazuh inside of the Linode virtual machine. Now it is time to add some agents. The two agents i will be adding are the Kali linux and Windows 10 VM that i have here running inside of VirtualBox.
+- Here we go! I now have successfully deployed Wazuh inside of the Linode virtual machine with a full view through the Wazuh dashboard.
+-
+- Now it is time to add some agents. The two agents i will be adding are the Kali linux and Windows 10 VM that i have here running inside of VirtualBox.
 
    ![image](https://github.com/user-attachments/assets/00f85fe4-7455-4ba8-93c2-41877823b955)
 
-- I will do so by clicking on *Add agent* inside of the Wazuh dashboard.
+- To set up the agents, i will head to the Wazuh dashboard and click on *Add agent*.
 
    ![image](https://github.com/user-attachments/assets/03ef695f-e9fe-4d68-9cd2-fa1a466331ca)
 
-- I will start with the Kali Linux VM. I will select the *DEB amd64*
+- I have to configure each agent separately, so i'll start with the Kali Linux VM. I will select the *DEB amd64* since this is the architecture of the Kali Linux VM.
 
 - Where it says *Server address* this will simply be the address the agent uses to communicate with Wazuh. I will input that reverse DNS from the Wazuh server that i created.
 
     ![image](https://github.com/user-attachments/assets/ec94cc40-29b5-4fd7-bbef-2e09db0f2586)
 
-- I will name the agent *Kali_Linux* and select the default group.
-- I will then be given a generated command shown below to copy in the Kali terminal to install the agent.
+- I will name the agent *Kali_Linux* and select the default group. If i scroll down further, I am given a generated command to copy in the Kali terminal to install the agent.
 
    ![image](https://github.com/user-attachments/assets/39b408e2-977c-4c25-84a9-5a162152d396)
    ![image](https://github.com/user-attachments/assets/fcfd39e0-c9a2-4159-a988-8a2fda905d3a)
 
-- I need enable this as a service. In the Wazuh dashboard, below the command to install the agent there will also be a command to start the agent. I will copy that and paste it into the Kali VM to start the agent.
+- Next, i need enable this as a service. Below the command to install the agent there will also be a command to start the agent. I will copy that and paste it into the Kali VM to enable the agent.
 
    ![image](https://github.com/user-attachments/assets/ef2cc33a-0266-4e53-9507-ca2bfea37517)
 
@@ -107,21 +109,20 @@
 
 - Now it's time to add my Windows 10 VM as an agent.
 
-- I will head back to the Wazuh Dashboard and select *Deploy new agent*
+- The process will be essentially be the same here. I will head back to the Wazuh Dashboard and select *Deploy new agent*
 
    ![image](https://github.com/user-attachments/assets/d81b00a7-58f1-410a-8e6c-b70b99529132)
 
-- The process will be the same except i will select the *windows* deployment, set *Windos_10*, enter the Ip address of the Wazuh server, and it will generate me a code to input inside of Powershell.
+- Select the *windows* deployment, set *Windos_10*, enter the Ip address of the Wazuh server, and it will generate a code for me to input inside of Powershell.
 
    ![image](https://github.com/user-attachments/assets/58739007-9085-4595-9bb4-953afe8be304)
    ![image](https://github.com/user-attachments/assets/fbdc6b54-4dcb-4de0-8db9-ee03533b1a20)
 
-- I will wait for the install to finish and then open the config file to add the Wazuh server ip for communication with the agent.
+- I will wait for the install to finish up and then open the config file to add the Wazuh server ip for communication with the agent.
 
    ![image](https://github.com/user-attachments/assets/cb73ff41-7c36-42aa-be86-50c888b89fe4)
 
-   
-- I can now start the agent with this command that Wazuh provides.
+- I will start the agent with this command that Wazuh provides.
   
     ![image](https://github.com/user-attachments/assets/a705a16d-da8d-4512-aa1c-ce135b3064f9)
     ![image](https://github.com/user-attachments/assets/4892c555-5817-429c-99f7-8646e1846282)
@@ -311,7 +312,7 @@
 
    ![image](https://github.com/user-attachments/assets/e3fe2aea-02fe-40b3-aba4-83653661bc5e)
 
-- I am BLOCKED. I cannot even ping this machine for 180s. How cool is that! These active responses are so powerful. You can configure these responses based on a variety of rules. It is so custom. You could even do it based on a certain command that was ran or a certain log came about in the system. 
+- I am BLOCKED. I cannot even ping this machine for 180s. How cool is that! These active responses are so powerful. You can configure these responses based on a variety of rules. It is so custom. You could even do it based on a certain command that was ran or if a certain log came about in the system. 
 
   
 
