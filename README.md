@@ -329,7 +329,7 @@
 
 - Wazuh also offers extensive of integrations that extends its functionality with other security tools such as Elastic Stack and Splunk SIEM. You can integrate it wil cloud monitoring tools, and even management tools such as ticketing systems or things like Microsoft Teams and email. Overall, it can enhance the effectiveness of your security operations.
 
-### conclusion
+## conclusion
 
 -This lab demonstrated that Wazuh is a powerful, scalable, and flexible solution for security monitoring and incident response. It not only offers traditional intrusion detection and log analysis but also provides advanced features such as file integrity monitoring, vulnerability detection, and cloud-based log aggregation. By integrating with a wide range of external tools (SIEMs, threat intelligence, cloud services, and orchestration systems), Wazuh can play a central role in a broader security operations strategy. In conclusion, Wazuh’s robust feature set, coupled with its ease of integration into existing infrastructures, makes it an excellent choice for organizations looking to improve their security posture. Whether deployed in small environments or across large, distributed systems, Wazuh provides the tools needed to detect, investigate, and respond to security incidents effectively.
 
