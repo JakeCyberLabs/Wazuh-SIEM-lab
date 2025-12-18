@@ -327,7 +327,7 @@
 
    ![image](https://github.com/user-attachments/assets/1a3ee96b-f7af-4214-9ae2-05b98fae9340)
 
-- Wazuh also offers extensive of integrations that extends its functionality with other security tools such as Elastic Stack and Splunk SIEM. You can integrate it wil cloud monitoring tools, and even management tools such as ticketing systems or things like Microsoft Teams and email. Overall, it can enhance the effectiveness of your security operations.
+- Wazuh also offers extensive of integrations that extends its functionality with other security tools such as Elastic Stack and Splunk SIEM. You can integrate it with cloud monitoring tools, and even management tools such as ticketing systems or things like Microsoft Teams and email. Overall, it can enhance the effectiveness of your security operations.
 
 ## conclusion
 
