@@ -323,7 +323,7 @@
    ![image](https://github.com/user-attachments/assets/a2033743-b02d-4cf3-9736-23de247c6e01)
    ![image](https://github.com/user-attachments/assets/20ac2fa2-57c3-4a44-bcfc-22a7925b48f0)
 
-- In the configuration above, notice how the scan interval says every 6 hours. I could that but it also says run on start. I will head to the Windows and the Linux VM to restart Wazuh and perform this scan. I will head back to My dashboard and select my Windows 10 VM and notice how it has just performed the scan with the associated time. Now, this is a clean VM so there are no vulnerabilities present at the moment. However, notice all of the information it can provides. The name, the version, the architecture, severity, the CVE associated & score, detection time, and a description.
+- In the configuration above, notice how the scan interval says every 6 hours. I could do that but it also says run on start. I will head to the Windows and the Linux VM to restart Wazuh and perform this scan. I will head back to My dashboard and select my Windows 10 VM and notice how it has just performed the scan with the associated time. Now, this is a clean VM so there are no vulnerabilities present at the moment. However, notice all of the information it can provides. The name, the version, the architecture, severity, the CVE associated & score, detection time, and a description.
 
    ![image](https://github.com/user-attachments/assets/1a3ee96b-f7af-4214-9ae2-05b98fae9340)
 
